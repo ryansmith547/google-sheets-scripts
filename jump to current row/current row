@@ -1,0 +1,7 @@
+// runs "onOpen"
+
+function onOpen() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getActiveSheet();
+  sheet.setActiveCell("A" + sheet.getLastRow());
+}
