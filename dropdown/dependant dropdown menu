@@ -1,3 +1,5 @@
+// runs "onEdit" 
+
 function setDataValid_(range, sourceRange) {
   var rule = SpreadsheetApp.newDataValidation().requireValueInRange(sourceRange, true).build();
   range.setDataValidation(rule);
