@@ -8,7 +8,7 @@ function onEdit() {
   var aCell = aSheet.getActiveCell();
   var aColumn = aCell.getColumn();
   
-  if (aColumn == 1 && aSheet.getName() == '*name of sheet*') {
+  if (aColumn == 1 && aSheet.getName() == 'name_of_sheet') {
     var range = aSheet.getRange(aCell.getRow(), aColumn + 1);
     var sourceRange = SpreadsheetApp.getActiveSpreadsheet().getRangeByName(aCell.getValue());
     setDataValid_(range, sourceRange)
