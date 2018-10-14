@@ -1,0 +1,9 @@
+function run() {
+  var spreadsheet, episodesRange, randomIndex, result
+  
+  spreadsheet = SpreadsheetApp.getActive()
+  episodesRange = spreadsheet.getRangeByName("Episodes")
+  randomIndex = Math.floor((Math.random() * episodesRange.getNumRows()))
+  result = episodesRange.getCell(randomIndex + 1, 1).getValue()
+  spreadsheet.getRangeByName("Result").setValue(result)
+}
