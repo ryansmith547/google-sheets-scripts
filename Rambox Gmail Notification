@@ -1,1 +1,0 @@
-function checkUnread(){var t=document.title.match(/\(([\d ]+)\)/);updateBadge(t?parseInt(t[1].replace(/[^0-9]/, '')):0)}function updateBadge(e){1<=e?rambox.setUnreadCount(e):rambox.clearUnreadCount()}setInterval(checkUnread,3e3);
