@@ -1,0 +1,30 @@
+function sendEmail() {
+var sheet = SpreadsheetApp.getActiveSheet();
+var startRow = 2;     // First row of data to process
+var numRows = sheet.getLastRow()-1;     // Number of rows to process
+var dataRange = sheet.getRange(startRow, 1, numRows, sheet.getLastColumn());      // Fetch the range of cells
+var data = dataRange.getValues();     // Fetch values for each row in the Range.
+//Logger.log(data)
+
+for (i in data) {
+  var row = data[i];
+  var date = new Date();
+  date.setHours(0);
+  date.setMinutes(0);
+  date.setSeconds(0);
+  //Logger.log(date);
+  var sheetDate = new Date(row[5]);
+ //Logger.log(sheetDate);
+ var Sdate = Utilities.formatDate(date,'GMT+1100','yyyy:MM:dd')
+ var SsheetDate = Utilities.formatDate(sheetDate,'GMT+1100', 'yyyy:MM:dd')
+     Logger.log(Sdate+' =? '+SsheetDate)
+        if (Sdate == SsheetDate){
+          var emailAddress = 'smith.ryan547@gmail.com'+','+'katie.nicholls88@gmail.com'
+          var html_link='https://docs.google.com/spreadsheets/d/19q6-LjfIfi6sOZqCFH56UXv1FwLtv2HWVUKoNG_oYbo/edit'
+          var message = 'You should apply. You really should. Do it. NOW! :) \n \n'+html_link
+          var subject = 'The application deadline for the '+row[1]+' role is in 3 days';      // Second column
+          MailApp.sendEmail(emailAddress, subject, message,{cc: 'ryan_smith@wvi.org'+','+'katie.nicholls@savethechildren.org.au'})
+          //Logger.log('SENT :'+emailAddress+'  '+subject+'  '+message)
+            }    
+   }
+  }
