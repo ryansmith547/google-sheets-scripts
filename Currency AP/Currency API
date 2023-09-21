@@ -1,0 +1,37 @@
+function coin_price() {
+    const myGoogleSheetName =
+        SpreadsheetApp.getActiveSpreadsheet().getSheetByName('converter')
+    const currencyApiCall = {
+        method: 'GET',
+        uri: 'https://api.currencyapi.com/v3/latest?apikey=CNDETf1OfePfCDPOBQOOqU59FpMRLkM744fwUEyj&base_currency=VUV',
+        headers: { 'apikey': 'CNDETf1OfePfCDPOBQOOqU59FpMRLkM744fwUEyj' },
+        json: true,
+        gzip: true,
+    }
+
+  
+   let myCoinSymbols = []
+    const getValues = SpreadsheetApp.getActiveSheet().getDataRange().getValues()
+    for (let i = 0; i < getValues.length; i++) {
+        // 1 = column B in the spreadsheet
+        const coinSymbol = getValues[i][1]
+        if (i > 0 && coinSymbol) {
+            myCoinSymbols.push(coinSymbol)
+        }
+    }
+
+    const result = UrlFetchApp.fetch(currencyApiCall.uri, currencyApiCall)
+    const txt = result.getContentText()
+    const jsonData = JSON.parse(txt)
+
+    for (let i = 0; i < myCoinSymbols.length; i++) {
+        const ticker = myCoinSymbols[i]
+        
+        const row = i + 2
+
+        // Puts a column of current market price's in dollars into the sheet at B3.
+        const currencyData = jsonData.data[ticker]
+        console.log(ticker, currencyData?.value)
+        myGoogleSheetName.getRange(row, 3).setValue(currencyData?.value ?? 'N/A')
+    }
+}
