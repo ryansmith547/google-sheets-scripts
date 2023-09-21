@@ -1,0 +1,21 @@
+function CheckBudget() {
+  // Fetch the current budget figures as a number & percent
+  var monthBudgetPercentRange = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Budget').getRange("A7"); 
+  var monthBudgetPercent = monthBudgetPercentRange.getValue();
+  var monthBudgetValueRange = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Budget').getRange("A8"); 
+  var monthBudgetValue = monthBudgetValueRange.getValue();{
+    // Sends an email on the 15th & 24th of every month with the number & percent amount of our budget for non-fixed costs remaining 
+    var recipientsTO = "katie.nicholls88@gmail.com";
+    var recipientsCC = "smith.ryan547@gmail.com";
+    var Subject = "We have "+((monthBudgetPercent*100).toFixed(0))+"% / "+monthBudgetValue+" € of our budget for non-fixed costs remaining for this month";
+    var message = "Stop eating so much tapas!";
+    var html = message;
+
+  MailApp.sendEmail({
+    to: recipientsTO,
+    cc: recipientsCC,
+    subject: Subject,
+    htmlBody: html
+  });
+ }
+}
